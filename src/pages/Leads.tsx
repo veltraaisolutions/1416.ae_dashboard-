@@ -14,6 +14,8 @@ import {
   UserMinus,
   Filter,
   RefreshCw,
+  Home, 
+  Bed, 
 } from "lucide-react";
 
 // 1. Data Interface
@@ -31,6 +33,8 @@ export interface Lead {
   qualified: boolean | null;
   opt_out: boolean | null;
   created_at: string | null;
+  bedroom_count: string | null; // New
+  property_type: string | null; // New
 }
 
 export default function LeadsPage() {
@@ -50,7 +54,7 @@ export default function LeadsPage() {
   } = useInfiniteQuery({
     queryKey: ["1416_leads_infinite_v2"],
     initialPageParam: 0,
-    staleTime: 1000 * 60 * 5, 
+    staleTime: 1000 * 60 * 5,
     queryFn: async ({ pageParam = 0 }) => {
       const from = pageParam * PAGE_SIZE;
       const to = from + PAGE_SIZE - 1;
@@ -69,13 +73,15 @@ export default function LeadsPage() {
     },
   });
 
-  // 3. Flatten pages and apply Local Filtering (Search + Opt-Out Toggle)
   const allLeads = data?.pages.flat() ?? [];
 
   const filteredLeads = allLeads.filter((lead) => {
-    const matchesSearch = [lead.name, lead.phone, lead.agent_name].some((val) =>
-      val?.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+    const matchesSearch = [
+      lead.name,
+      lead.phone,
+      lead.agent_name,
+      lead.property_type,
+    ].some((val) => val?.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesFilter = hideOptedOut ? !lead.opt_out : true;
     return matchesSearch && matchesFilter;
   });
@@ -93,7 +99,6 @@ export default function LeadsPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Header Section */}
         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
           <div>
             <h1 className="text-2xl font-bold text-foreground tracking-tight">
@@ -105,7 +110,6 @@ export default function LeadsPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Manual Hard Refresh Button (Bypasses Cache) */}
             <button
               onClick={() => refetch()}
               disabled={isFetching}
@@ -117,7 +121,6 @@ export default function LeadsPage() {
               />
             </button>
 
-            {/* Quick Filter Toggle */}
             <button
               onClick={() => setHideOptedOut(!hideOptedOut)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold border transition-all ${
@@ -132,18 +135,16 @@ export default function LeadsPage() {
           </div>
         </div>
 
-        {/* Search Input */}
         <div className="relative max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search leads..."
+            placeholder="Search leads or property types..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 bg-muted/50 border-none focus-visible:ring-1 focus-visible:ring-primary/50"
           />
         </div>
 
-        {/* Leads Table */}
         <div className="rounded-xl border border-border bg-card overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-[13px] text-left border-collapse">
@@ -151,6 +152,7 @@ export default function LeadsPage() {
                 <tr>
                   <th className="p-4 w-12">#</th>
                   <th className="p-4">Name / Contact</th>
+                  <th className="p-4">Property / Beds</th>
                   <th className="p-4">Agent</th>
                   <th className="p-4 text-center">Opt-Out</th>
                   <th className="p-4">Status</th>
@@ -177,6 +179,17 @@ export default function LeadsPage() {
                       </div>
                       <div className="text-muted-foreground flex items-center gap-1.5 text-[11px] mt-1">
                         <Phone className="h-3 w-3" /> {lead.phone}
+                      </div>
+                    </td>
+                    {/* New Property/Beds Column */}
+                    <td className="p-4">
+                      <div className="flex items-center gap-1.5 text-foreground font-medium">
+                        <Home className="h-3 w-3 text-muted-foreground" />
+                        {lead.property_type || "—"}
+                      </div>
+                      <div className="flex items-center gap-1.5 text-muted-foreground text-[11px] mt-1">
+                        <Bed className="h-3 w-3" />
+                        {lead.bedroom_count ? `${lead.bedroom_count} BR` : "—"}
                       </div>
                     </td>
                     <td className="p-4 text-muted-foreground">
@@ -230,7 +243,6 @@ export default function LeadsPage() {
           </div>
         </div>
 
-        {/* Pagination Trigger */}
         {hasNextPage && (
           <div className="flex justify-center pt-6">
             <button
@@ -248,7 +260,6 @@ export default function LeadsPage() {
           </div>
         )}
 
-        {/* End of List Message */}
         {!hasNextPage && allLeads.length > 0 && (
           <p className="text-center text-[11px] text-muted-foreground/60 pt-6">
             End of list. All leads loaded.
