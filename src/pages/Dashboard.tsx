@@ -8,10 +8,16 @@ import {
   CheckCircle,
   Activity,
   Loader2,
+  RefreshCw, 
 } from "lucide-react";
 
 export default function Dashboard() {
-  const { data: stats, isLoading } = useQuery({
+  const {
+    data: stats,
+    isLoading,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryKey: ["1416_leads_summary"],
     // 5 minutes stale time: data is considered fresh for 5 mins
     staleTime: 1000 * 60 * 5,
@@ -71,9 +77,24 @@ export default function Dashboard() {
             </h1>
             <p className="text-muted-foreground">Db Stats</p>
           </div>
-          {/* Small indicator that data is cached */}
-          <div className="text-[10px] text-muted-foreground bg-muted px-2 py-1 rounded">
-            Auto-refresh: 5m
+
+          <div className="flex items-center gap-3">
+            {/* Hard Refresh Button */}
+            <button
+              onClick={() => refetch()}
+              disabled={isFetching}
+              className="p-2 rounded-md border border-border bg-background hover:bg-muted transition-colors disabled:opacity-50"
+              title="Refresh Stats"
+            >
+              <RefreshCw
+                className={`h-4 w-4 ${isFetching ? "animate-spin text-primary" : "text-muted-foreground"}`}
+              />
+            </button>
+
+            {/* Indicator */}
+            <div className="text-[10px] text-muted-foreground bg-muted px-2 py-1 rounded">
+              Auto-refresh: 5m
+            </div>
           </div>
         </div>
 
