@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Job } from "@/pages/Jobs";
+import { Job } from "@/pages/Leads";
 import { Button } from "@/components/ui/button";
 import { Trash2, ArrowUpDown, MessageSquareShare } from "lucide-react";
 import { formatDate } from "./JobsTable";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 
 const CLEANER_PHONES: Record<string, string> = {
-  "Eamon": "+447738355687",
+  Eamon: "+447738355687",
   "Jane Smith": "+923398787878",
   "John Wilson": "+923398787878",
   "Alice May": "+923398787878",

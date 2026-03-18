@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Jobs from "./pages/Jobs";
+import Jobs from "./pages/Leads";
 import Enquiries from "./pages/Enquiries";
 import Schedule from "./pages/Schedule";
 import Messages from "./pages/Messages";

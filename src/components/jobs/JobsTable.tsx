@@ -1,5 +1,5 @@
 import React from "react";
-import { Job } from "@/pages/Jobs";
+import { Job } from "@/pages/Leads";
 import { DataTable } from "@/components/ui/data-table";
 import { columns } from "./columns";
 
