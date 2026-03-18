@@ -69,7 +69,7 @@ export default function Dashboard() {
             <h1 className="text-2xl font-bold text-foreground">
               Leads Dashboard
             </h1>
-            <p className="text-muted-foreground">Pacific client hub metrics</p>
+            <p className="text-muted-foreground">Db Stats</p>
           </div>
           {/* Small indicator that data is cached */}
           <div className="text-[10px] text-muted-foreground bg-muted px-2 py-1 rounded">
