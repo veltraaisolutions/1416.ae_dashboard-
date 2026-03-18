@@ -21,10 +21,10 @@ import {
 
 const menuItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
-  { title: "Booked Jobs", url: "/jobs", icon: ClipboardList },
+  { title: "Leads", url: "/jobs", icon: ClipboardList },
   // { title: "Enquiries", url: "/enquiries", icon: Users },
-  { title: "Message Logs", url: "/messages", icon: MessageSquare },
-  { title: "Schedule", url: "/schedule", icon: CalendarDays },
+  // { title: "Message Logs", url: "/messages", icon: MessageSquare },
+  // { title: "Schedule", url: "/schedule", icon: CalendarDays },
 ];
 
 export function AppSidebar() {
@@ -35,17 +35,17 @@ export function AppSidebar() {
       <SidebarHeader className="p-6 border-b border-sidebar-border">
         <div className="flex items-center gap-3 group">
           <div className="relative w-12 h-12 rounded-full overflow-hidden border border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-colors flex-shrink-0">
-            <img
+            {/* <img
               src="/img/logo.svg"
-              alt="Maid To Perfection Logo"
+              alt="1416.ae"
               className="w-full h-full object-cover"
-            />
+            /> */}
           </div>
 
           {/* Text Styling */}
           <div className="flex flex-col">
             <span className="text-[14px] font-black italic uppercase tracking-tighter leading-none text-foreground">
-              Maid <span className="text-[#D4AF37]">To Perfection</span>
+              1416 <span className="text-[#D4AF37]">Ae</span>
             </span>
             <span className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground mt-1 flex items-center gap-1">
               <Crown className="h-2 w-2 text-[#D4AF37]" />
@@ -104,7 +104,7 @@ export function AppSidebar() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-foreground truncate">
-                Kayleigh
+                Naheem
               </p>
               <p className="text-xs text-muted-foreground">Owner</p>
             </div>
