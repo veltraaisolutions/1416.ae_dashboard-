@@ -40,7 +40,7 @@ export function MessageThread({
 
     try {
       const response = await fetch(
-        "https://n8n.veltraai.net/webhook/Manual-Message",
+        "https://n8n.veltraai.net/webhook/Manual-Message-1416.ae",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -50,7 +50,7 @@ export function MessageThread({
             message_content: messageText,
             timestamp: new Date().toISOString(),
           }),
-        }
+        },
       );
 
       if (!response.ok) throw new Error("Failed to send");
