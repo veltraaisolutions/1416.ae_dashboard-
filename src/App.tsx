@@ -24,7 +24,7 @@ const App = () => (
             element={<Dashboard />}
           />
           <Route
-            path="/jobs"
+            path="/leads"
             element={<Jobs />}
           />
           <Route
