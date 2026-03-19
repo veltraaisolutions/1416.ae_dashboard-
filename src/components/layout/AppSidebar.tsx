@@ -23,7 +23,7 @@ const menuItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
   { title: "Leads", url: "/jobs", icon: ClipboardList },
   // { title: "Enquiries", url: "/enquiries", icon: Users },
-  // { title: "Messages", url: "/messages", icon: MessageSquare },
+  { title: "Messages", url: "/messages", icon: MessageSquare },
   // { title: "Schedule", url: "/schedule", icon: CalendarDays },
 ];
 
