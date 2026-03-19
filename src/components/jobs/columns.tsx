@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Job } from "@/pages/Leads";
+import { Job } from "@/pages/Jobs";
 import { Button } from "@/components/ui/button";
 import { Trash2, ArrowUpDown, MessageSquareShare } from "lucide-react";
 import { formatDate } from "./JobsTable";

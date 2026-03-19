@@ -14,8 +14,8 @@ import {
   UserMinus,
   Filter,
   RefreshCw,
-  Home, 
-  Bed, 
+  Home,
+  Bed,
 } from "lucide-react";
 
 // 1. Data Interface
