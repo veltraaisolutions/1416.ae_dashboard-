@@ -100,7 +100,7 @@ export function AppSidebar() {
         <div className="glass-card rounded-lg p-3">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
-              <span className="text-sm font-semibold text-primary">KL</span>
+              <span className="text-sm font-semibold text-primary">N</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-foreground truncate">
