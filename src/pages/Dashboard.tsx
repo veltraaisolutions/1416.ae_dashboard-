@@ -2,7 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
-import { Users, Loader2, RefreshCw } from "lucide-react";
+import {
+  Users,
+  CheckCircle,
+  Send,
+  XCircle,
+  Loader2,
+  RefreshCw,
+} from "lucide-react";
 
 export default function Dashboard() {
   const {
@@ -15,11 +22,33 @@ export default function Dashboard() {
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     queryFn: async () => {
-      const { count: total } = await supabase
-        .from("1416_leads")
-        .select("*", { count: "exact", head: true });
+      const [
+        { count: total },
+        { count: qualified },
+        { count: msgSent },
+        { count: optedOut },
+      ] = await Promise.all([
+        supabase.from("1416_leads").select("*", { count: "exact", head: true }),
+        supabase
+          .from("1416_leads")
+          .select("*", { count: "exact", head: true })
+          .eq("qualified", true),
+        supabase
+          .from("1416_leads")
+          .select("*", { count: "exact", head: true })
+          .eq("msg_sent", true),
+        supabase
+          .from("1416_leads")
+          .select("*", { count: "exact", head: true })
+          .eq("opt_out", true),
+      ]);
 
-      return { total: total || 0 };
+      return {
+        total: total || 0,
+        qualified: qualified || 0,
+        msgSent: msgSent || 0,
+        optedOut: optedOut || 0,
+      };
     },
   });
 
@@ -61,12 +90,33 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           <MetricCard
             title="Total Leads"
             value={stats?.total}
             subtitle="Full database count"
             icon={Users}
+            variant="highlight"
+          />
+          <MetricCard
+            title="Qualified"
+            value={stats?.qualified}
+            subtitle="Ready for sales team"
+            icon={CheckCircle}
+            variant="highlight"
+          />
+          <MetricCard
+            title="Message Sent"
+            value={stats?.msgSent}
+            subtitle="Initial outreach done"
+            icon={Send}
+            variant="highlight"
+          />
+          <MetricCard
+            title="Opted Out"
+            value={stats?.optedOut}
+            subtitle="Unsubscribed leads"
+            icon={XCircle}
             variant="highlight"
           />
         </div>
