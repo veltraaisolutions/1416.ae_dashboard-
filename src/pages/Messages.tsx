@@ -40,7 +40,8 @@ export default function Messages() {
       const { data, error } = await supabase
         .from("1416_message_logs")
         .select("*")
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false })
+        .limit(2000);
       if (error) throw error;
       return (data as Message[]) ?? [];
     },
@@ -81,12 +82,17 @@ export default function Messages() {
             },
           ]),
         ).values(),
-      ).reverse() // Show newest conversations at the top
+      )
     : [];
 
   // Filter messages for the specific person selected
   const filteredMessages = selectedContact
-    ? messages?.filter((msg) => msg.phone === selectedContact.id)
+    ? messages
+        ?.filter((msg) => msg.phone === selectedContact.id)
+        .sort(
+          (a, b) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+        )
     : [];
 
   if (isLoading) {
